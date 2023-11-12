@@ -5,6 +5,7 @@ A printf function for Arduino.
 
 ## Example
 
+'''
 include "aprintf.h"
 
 void setup()
@@ -16,6 +17,6 @@ void setup()
 }
 
 void loop() {}
-
+'''
 
 
