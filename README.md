@@ -1,11 +1,11 @@
 # Readme
 
-A printf function for Arduino. For details see
-[How To Print To Serial Monitor On Arduino](https://www.makerguides.com/how-to-print-to-serial-monitor-on-arduino/)
+A printf function for Arduino.
 
 
 ## Example
 
+'''
 include "aprintf.h"
 
 void setup()
@@ -17,4 +17,5 @@ void setup()
 }
 
 void loop() {}
+'''
 
