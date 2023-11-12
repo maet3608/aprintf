@@ -2,8 +2,19 @@
 
 A printf function for Arduino.
 
+Serial.print does not support formatted printing
+on AVR hardware. This reimplementation of a printf-like
+function fixes this.
+
+For more details see 
+[How To Print To Serial Monitor On Arduino](https://www.makerguides.com/how-to-print-to-serial-monitor-on-arduino/)
+
 
 ## Example
+
+A simple example that includes the library
+and uses the aprintf() function to print
+data formatted to the Serial Monitor.
 
 ```
 include "aprintf.h"
@@ -18,4 +29,3 @@ void setup()
 
 void loop() {}
 ```
-
