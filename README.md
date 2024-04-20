@@ -21,11 +21,13 @@ and cannot be called concurrently.
 
 ## Formatting options
 
+```
 aprintf("text);
 aprintf(123)
 aprintf("counter = %d", 123)
 aprintf("counter = %03d", 123)
 aprintf("speed = %.2f", 20.5)
+```
 
 For more formatting options see [Format specifiers](https://cplusplus.com/reference/cstdio/printf/)
 
