@@ -19,7 +19,7 @@ Just zip up all the contents as zip file or download this repository as a .zip f
 
 In Arduino IDE menu, go to `Sketch -> Include Libray -> Add .ZIP Library...` and then select the zipped library.
 
-After including it, you can add the include headers to your current sketch with `Sketch -> Include Library -> aprintf`.
+After including it, you can add the include headers to your current sketch with `#include aprintf.h`.
 
 ## Running examples
 
