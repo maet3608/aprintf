@@ -28,6 +28,38 @@ static void buf_pad(int &pos, char c, int count) {
 }
 
 // ---------------------------------------------------------------------------
+// Portable integer-to-string conversion (replaces non-standard ltoa/ultoa)
+// ---------------------------------------------------------------------------
+
+static int utoa_portable(unsigned long val, char *buf, int base) {
+  if (val == 0) {
+    buf[0] = '0';
+    buf[1] = '\0';
+    return 1;
+  }
+  char tmp[33];
+  int i = 0;
+  while (val > 0) {
+    int digit = val % base;
+    tmp[i++] = (digit < 10) ? ('0' + digit) : ('a' + digit - 10);
+    val /= base;
+  }
+  int len = i;
+  for (int j = 0; j < len; j++)
+    buf[j] = tmp[len - 1 - j];
+  buf[len] = '\0';
+  return len;
+}
+
+static int itoa_portable(long val, char *buf) {
+  if (val < 0) {
+    buf[0] = '-';
+    return utoa_portable((unsigned long)(-val), buf + 1, 10) + 1;
+  }
+  return utoa_portable((unsigned long)val, buf, 10);
+}
+
+// ---------------------------------------------------------------------------
 // Check if a format specifier is a floating-point type
 // ---------------------------------------------------------------------------
 
@@ -219,28 +251,26 @@ static void vformat(const char *format, va_list args) {
     char num_buf[48];
     num_buf[0] = '\0';
     const char *sign = "";
-    bool is_neg = false;
 
     if (spec == 'd' || spec == 'i') {
       long val = long_mod ? va_arg(args, long)
                           : (long)va_arg(args, int);
       if (val < 0) {
-        is_neg = true;
         val = -val;
         sign = "-";
       } else if (plus)
         sign = "+";
       else if (space)
         sign = " ";
-      ltoa(val, num_buf, 10);
+      itoa_portable(val, num_buf);
     } else if (spec == 'u') {
       unsigned long val = long_mod ? va_arg(args, unsigned long)
                                    : (unsigned long)va_arg(args, unsigned int);
-      ultoa(val, num_buf, 10);
+      utoa_portable(val, num_buf, 10);
     } else if (spec == 'o') {
       unsigned long val = long_mod ? va_arg(args, unsigned long)
                                    : (unsigned long)va_arg(args, unsigned int);
-      ultoa(val, num_buf, 8);
+      utoa_portable(val, num_buf, 8);
       if (hash && num_buf[0] != '0') {
         size_t nl = strlen(num_buf);
         memmove(num_buf + 1, num_buf, nl + 1);
@@ -249,7 +279,7 @@ static void vformat(const char *format, va_list args) {
     } else if (spec == 'x' || spec == 'X') {
       unsigned long val = long_mod ? va_arg(args, unsigned long)
                                    : (unsigned long)va_arg(args, unsigned int);
-      ultoa(val, num_buf, 16);
+      utoa_portable(val, num_buf, 16);
       if (spec == 'X') {
         for (int i = 0; num_buf[i]; i++)
           num_buf[i] = toupper((unsigned char)num_buf[i]);
@@ -278,7 +308,7 @@ static void vformat(const char *format, va_list args) {
     } else if (spec == 'p') {
       void *ptr = va_arg(args, void *);
       strcpy(num_buf, "0x");
-      ultoa((unsigned long)(uintptr_t)ptr, num_buf + 2, 16);
+      utoa_portable((unsigned long)(uintptr_t)ptr, num_buf + 2, 16);
       sign = "";
     } else if (spec == 'n') {
       int *nptr = va_arg(args, int *);
