@@ -10,6 +10,24 @@ For more details see
 [How To Print To Serial Monitor On Arduino](https://www.makerguides.com/how-to-print-to-serial-monitor-on-arduino/)
 
 
+## Packaging
+
+Just zip up all the contents as zip file or download this repository as a .zip from GitHub via
+`Code -> Download ZIP`
+
+## Using library
+
+In Arduino IDE menu, go to `Sketch -> Include Libray -> Add .ZIP Library...` and then select the zipped library.
+
+After including it, you can add the include headers to your current sketch with `Sketch -> Include Library -> aprintf`.
+
+## Running examples
+
+You can open the example from the Arduino IDE by going to the menu `File -> Examples -> aprintf -> aprintf_example`.
+
+
+## Functions
+
 There are two functions:
 
 aprintf(const char *format, ...) - which prints to Serial
