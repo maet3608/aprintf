@@ -1,5 +1,6 @@
 #include "aprintf.h"
 
+#include <ctype.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -249,8 +250,10 @@ static void vformat(const char *format, va_list args) {
       unsigned long val = long_mod ? va_arg(args, unsigned long)
                                    : (unsigned long)va_arg(args, unsigned int);
       ultoa(val, num_buf, 16);
-      if (spec == 'X')
-        strupr(num_buf);
+      if (spec == 'X') {
+        for (int i = 0; num_buf[i]; i++)
+          num_buf[i] = toupper((unsigned char)num_buf[i]);
+      }
       // '#' prefix for hex
       // (we handle this later after measuring lengths)
     } else if (spec == 'c') {
