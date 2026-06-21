@@ -50,3 +50,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+.pio-mcp-workspace/agent_activities.jsonl
+.pio-mcp-workspace/audit/events.jsonl
+.pio-mcp-workspace/registry/command_history.json
