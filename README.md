@@ -2,7 +2,7 @@
 
 *A printf-like function for Arduino (and other MCUs) based on `Serial.print`.*
 
-[![Version](https://img.shields.io/badge/version-1.0.1-blue)](https://github.com/maet3608/aprintf)
+[![Version](https://img.shields.io/badge/version-1.0.5-blue)](https://github.com/maet3608/aprintf)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
 ## Description
